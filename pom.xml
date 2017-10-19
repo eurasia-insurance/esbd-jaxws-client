@@ -95,7 +95,7 @@
 							</wsdlUrls>
 							<keep>true</keep>
 							<extension>true</extension>
-							<packageName>tech.lapsa.esbd.jaxws</packageName>
+							<packageName>tech.lapsa.esbd.jaxws.wsimport</packageName>
 							<xnocompile>true</xnocompile>
 							<quiet>true</quiet>
 							<vmArgs>

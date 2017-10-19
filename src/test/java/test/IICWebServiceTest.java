@@ -17,11 +17,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import tech.lapsa.esbd.jaxws.ArrayOfClient;
-import tech.lapsa.esbd.jaxws.Client;
-import tech.lapsa.esbd.jaxws.IICWebService;
-import tech.lapsa.esbd.jaxws.IICWebServiceSoap;
-import tech.lapsa.esbd.jaxws.User;
+import tech.lapsa.esbd.jaxws.wsimport.ArrayOfClient;
+import tech.lapsa.esbd.jaxws.wsimport.Client;
+import tech.lapsa.esbd.jaxws.wsimport.IICWebService;
+import tech.lapsa.esbd.jaxws.wsimport.IICWebServiceSoap;
+import tech.lapsa.esbd.jaxws.wsimport.User;
 
 public class IICWebServiceTest {
     private static Logger logger;
