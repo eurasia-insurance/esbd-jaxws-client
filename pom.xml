@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>tech.lapsa.maven</groupId>
+		<artifactId>maven-general</artifactId>
+		<version>3.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>tech.lapsa.esbd</groupId>
+	<artifactId>esbd-jaxws-client</artifactId>
+	<version>4.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>ESBD Lib : JAX-WS client</name>
+
+	<properties>
+		<!-- 	BOMS -->
+		<javax-javaee-bom.version>7.0-SNAPSHOT</javax-javaee-bom.version>
+		<!-- ASB -->
+		<asb.keystore.file>${env.ASB_PATH}/keystore.jks</asb.keystore.file>
+		<asb.keystore.password>${env.ASB_KEYSTORE_PASSWORD}</asb.keystore.password>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- BOMS -->
+			<dependency>
+				<groupId>tech.lapsa.javax</groupId>
+				<artifactId>javax-javaee-bom</artifactId>
+				<version>${javax-javaee-bom.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<!-- own -->
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>esbd-jaxws-client</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>esbd-connection</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- JavaEE -->
+		<dependency>
+			<groupId>javax.xml.rpc</groupId>
+			<artifactId>javax.xml.rpc-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<defaultGoal>clean install</defaultGoal>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<systemPropertyVariables>
+						<javax.net.ssl.keyStore>${asb.keystore.file}</javax.net.ssl.keyStore>
+						<javax.net.ssl.keyStorePassword>${asb.keystore.password}</javax.net.ssl.keyStorePassword>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>2.4.1</version>
+				<executions>
+					<execution>
+						<id>generate-ws-classes</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlUrls>
+								<wsdlUrl>https://web.mkb.kz/IICWebService.asmx?wsdl</wsdlUrl>
+							</wsdlUrls>
+							<keep>true</keep>
+							<extension>true</extension>
+							<packageName>tech.lapsa.esbd.jaxws</packageName>
+							<xnocompile>true</xnocompile>
+							<quiet>true</quiet>
+							<vmArgs>
+								<vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
+								<vmArg>-Djavax.net.ssl.keyStore=${asb.keystore.file}</vmArg>
+								<vmArg>-Djavax.net.ssl.keyStorePassword=${asb.keystore.password}</vmArg>
+							</vmArgs>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<scm>
+		<connection>scm:git:https://gitlab.lapsa.tech/lapsa/esbd/jaxws-client.git</connection>
+		<developerConnection>scm:git:https://gitlab.lapsa.tech/lapsa/esbd/jaxws-client.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<issueManagement>
+		<system>gitlab</system>
+		<url>https://gitlab.lapsa.tech/lapsa/esbd/jaxws-client/issues</url>
+	</issueManagement>
+
+</project>
