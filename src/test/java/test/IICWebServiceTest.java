@@ -8,13 +8,11 @@ import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.logging.Logger;
 
 import javax.xml.rpc.ServiceException;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import tech.lapsa.esbd.jaxws.wsimport.ArrayOfClient;
@@ -22,9 +20,12 @@ import tech.lapsa.esbd.jaxws.wsimport.Client;
 import tech.lapsa.esbd.jaxws.wsimport.IICWebService;
 import tech.lapsa.esbd.jaxws.wsimport.IICWebServiceSoap;
 import tech.lapsa.esbd.jaxws.wsimport.User;
+import tech.lapsa.java.commons.logging.MyLogger;
 
 public class IICWebServiceTest {
-    private static Logger logger;
+
+    private static MyLogger logger = MyLogger.getDefault();
+
     private static DateFormat ESBD_DATE_FORMATER = new SimpleDateFormat("dd.MM.yyyy");
 
     private static final String TEST_WS_USER_NAME = System.getenv("ASB_USER");
@@ -37,13 +38,8 @@ public class IICWebServiceTest {
     private User user;
     private String aSessionID;
 
-    @BeforeClass
-    public static void initClass() {
-	logger = Logger.getAnonymousLogger();
-    }
-
     private void logMsg(String method, String message) {
-	logger.info(method + " : " + message);
+	logger.INFO.log(method + " : " + message);
     }
 
     @Before
