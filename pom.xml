@@ -16,8 +16,8 @@
 
 	<properties>
 		<!-- BOMS -->
-		<javax-javaee-bom.version>7.0a-SNAPSHOT</javax-javaee-bom.version>
-		<java-commons.version>1.1-SNAPSHOT</java-commons.version>
+		<javax-javaee-bom.version>7.0a</javax-javaee-bom.version>
+		<java-commons.version>1.1</java-commons.version>
 		<!-- ASB -->
 		<asb.keystore.file>${env.ASB_PATH}/keystore.jks</asb.keystore.file>
 		<asb.keystore.password>${env.ASB_KEYSTORE_PASSWORD}</asb.keystore.password>
