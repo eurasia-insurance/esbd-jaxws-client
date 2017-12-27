@@ -104,9 +104,11 @@
 							<goal>wsimport</goal>
 						</goals>
 						<configuration>
-							<wsdlUrls>
-								<wsdlUrl>https://web.mkb.kz/IICWebService.asmx?wsdl</wsdlUrl>
-							</wsdlUrls>
+							<wsdlLocation>/tech/lapsa/esbd/jaxws/wsimport/IICWebService.wsdl</wsdlLocation>
+							<wsdlDirectory>${basedir}/src/main/resources/tech/lapsa/esbd/jaxws/wsimport</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>IICWebService.wsdl</wsdlFile>
+							</wsdlFiles>
 							<keep>true</keep>
 							<extension>true</extension>
 							<packageName>tech.lapsa.esbd.jaxws.wsimport</packageName>
@@ -114,8 +116,6 @@
 							<quiet>true</quiet>
 							<vmArgs>
 								<vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
-								<vmArg>-Djavax.net.ssl.keyStore=${asb.keystore.file}</vmArg>
-								<vmArg>-Djavax.net.ssl.keyStorePassword=${asb.keystore.password}</vmArg>
 							</vmArgs>
 						</configuration>
 					</execution>
