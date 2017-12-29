@@ -104,8 +104,8 @@
 							<goal>wsimport</goal>
 						</goals>
 						<configuration>
-							<wsdlLocation>/tech/lapsa/esbd/jaxws/wsimport/IICWebService.wsdl</wsdlLocation>
-							<wsdlDirectory>${basedir}/src/main/resources/tech/lapsa/esbd/jaxws/wsimport</wsdlDirectory>
+							<wsdlLocation>/META-INF/wsdl/IICWebService.wsdl</wsdlLocation>
+							<wsdlDirectory>${basedir}/src/main/resources/META-INF/wsdl/</wsdlDirectory>
 							<wsdlFiles>
 								<wsdlFile>IICWebService.wsdl</wsdlFile>
 							</wsdlFiles>
