@@ -5,7 +5,7 @@ cur=`pwd`
 rel="`dirname $0`/../"
 basedir=`realpath $rel`
 
-targetdir="$basedir/src/main/resources/tech/lapsa/esbd/jaxws/wsimport/"
+targetdir="$basedir/src/main/resources/META-INF/wsdl/"
 mkdir -p $targetdir
 
 cd `dirname $0`
