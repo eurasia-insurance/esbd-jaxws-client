@@ -1,16 +1,10 @@
 #!/bin/bash
 
-cur=`pwd`
-
-rel="`dirname $0`/../"
-basedir=`realpath $rel`
-
+basedir="$(cd "$(dirname "$1")/../"; pwd)"
 targetdir="$basedir/src/main/resources/META-INF/wsdl/"
+
 mkdir -p $targetdir
 
-cd `dirname $0`
-
-curl --config curl.config \
-	--output $targetdir/IICWebService.wsdl https://web.mkb.kz/IICWebService.asmx?wsdl
-
-cd $cur
+curl --config curl.config https://web.mkb.kz/IICWebService.asmx?wsdl \
+	| dos2nix \
+	> $targetdir/IICWebService.wsdl
