@@ -5,9 +5,8 @@ import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.xml.rpc.ServiceException;
 
@@ -26,7 +25,7 @@ public class IICWebServiceTest {
 
     private static MyLogger logger = MyLogger.getDefault();
 
-    private static DateFormat ESBD_DATE_FORMATER = new SimpleDateFormat("dd.MM.yyyy");
+    private static DateTimeFormatter ESBD_DATE_FORMATER = DateTimeFormatter.ofPattern("d.MM.uuuu");
 
     private static final String TEST_WS_USER_NAME = System.getenv("ASB_USER");
     private static final String TEST_WS_USER_PASSWORD = System.getenv("ASB_PASSWORD");
@@ -38,14 +37,16 @@ public class IICWebServiceTest {
     private User user;
     private String aSessionID;
 
-    private void logMsg(String method, String message) {
-	logger.INFO.log(method + " : " + message);
+    private void logMsg(String method, String message, Object... params) {
+	logger.INFO.log(method + " : " + message, params);
     }
 
     @Before
     public void init() throws MalformedURLException, RemoteException, ServiceException {
 	IICWebService service = new IICWebService();
 	soap = service.getIICWebServiceSoap();
+	logMsg("init()", "Authentificating with user '%1$s', password '%2$s'", TEST_WS_USER_NAME,
+		TEST_WS_USER_PASSWORD);
 	user = soap.authenticateUser(TEST_WS_USER_NAME, TEST_WS_USER_PASSWORD);
 	assertThat(user, notNullValue());
 	aSessionID = user.getSessionID();
@@ -100,15 +101,14 @@ public class IICWebServiceTest {
 
     @Test
     public void testCkeckTestClientClassId() throws RemoteException {
-	Calendar now = Calendar.getInstance();
-	logMsg("testCkeckTestClientClassId()", "Checking for date " + ESBD_DATE_FORMATER.format(now.getTime()));
+	final String esbdDate = ESBD_DATE_FORMATER.format(LocalDate.now());
+	logMsg("testCkeckTestClientClassId()", "Checking for date " + esbdDate);
 	Client cl = getTestClientByRNN(TEST_DATA_RNN);
-	int aClassId = soap.getClassId(aSessionID, cl.getID(), ESBD_DATE_FORMATER.format(now.getTime()), 0);
+	int aClassId = soap.getClassId(aSessionID, cl.getID(), esbdDate, 0);
 	assertThat(aClassId, greaterThan(0));
 	String aClassText = soap.getClassText(aSessionID, aClassId);
 	assertNotNull(aClassText);
 	assertNotEquals("", aClassText);
 	logMsg("testCkeckTestClientClassId()", " ClassId " + aClassId + " ClassText " + aClassText);
     }
-
 }
