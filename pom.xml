@@ -9,7 +9,7 @@
 
 	<groupId>tech.lapsa.esbd</groupId>
 	<artifactId>esbd-jaxws-client</artifactId>
-	<version>4.5-SNAPSHOT</version>
+	<version>4.5</version>
 	<packaging>jar</packaging>
 
 	<name>ESBD Lib : JAX-WS client</name>
@@ -135,7 +135,7 @@
 	<scm>
 		<connection>scm:git:https://gitlab.lapsa.tech/lapsa/esbd/jaxws-client.git</connection>
 		<developerConnection>scm:git:https://gitlab.lapsa.tech/lapsa/esbd/jaxws-client.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>v4.5</tag>
 	</scm>
 
 	<issueManagement>
