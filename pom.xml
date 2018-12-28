@@ -133,9 +133,9 @@
 	</build>
 
 	<scm>
-		<connection>scm:git:https://gitlab.lapsa.tech/lapsa/esbd/jaxws-client.git</connection>
-		<developerConnection>scm:git:https://gitlab.lapsa.tech/lapsa/esbd/jaxws-client.git</developerConnection>
-		<tag>v4.5</tag>
+		<connection>scm:git:https://github.com/eurasia-insurance/esbd-jaxws-client.git</connection>
+		<developerConnection>scm:git:https://github.com/eurasia-insurance/esbd-jaxws-client.git</developerConnection>
+		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
