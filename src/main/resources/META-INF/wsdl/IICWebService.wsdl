@@ -2,27 +2,22 @@
 <wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://icweb/IICWebService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="https://icweb/IICWebService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="https://icweb/IICWebService">
-      <s:element name="GetContractDsAnnuity_By_Number">
+      <s:element name="GetContractDsLife_By_Id">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="aContractNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="aCONTRACT_ID" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetContractDsAnnuity_By_NumberResponse">
+      <s:element name="GetContractDsLife_By_IdResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsAnnuity_By_NumberResult" type="tns:ArrayOfCONTRACT_DS_ANNUITY" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsLife_By_IdResult" type="tns:CONTRACT_DS_LIFE" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfCONTRACT_DS_ANNUITY">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CONTRACT_DS_ANNUITY" nillable="true" type="tns:CONTRACT_DS_ANNUITY" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="CONTRACT_DS_ANNUITY">
+      <s:complexType name="CONTRACT_DS_LIFE">
         <s:complexContent mixed="false">
           <s:extension base="tns:CONTRACT">
             <s:sequence>
@@ -30,6 +25,8 @@
               <s:element minOccurs="1" maxOccurs="1" name="PREMIUM" type="s:double" />
               <s:element minOccurs="1" maxOccurs="1" name="PAYMENT_PERIODICITY_ID" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="PAYMENT_PERIODICITY" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="INSURED_COUNT" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="INSURED_LIST" type="tns:ArrayOfCONTRACT_DS_LIFE_INSURED" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -74,6 +71,12 @@
           <s:element minOccurs="0" maxOccurs="1" name="CONTRACT_BENEFIT_RECIPIENTS" type="tns:ArrayOfCONTRACT_BENEFIT_RECIPIENT" />
           <s:element minOccurs="1" maxOccurs="1" name="PAYMENT_TYPE_ID" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="PAYMENT_TYPE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GLOBALID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="mobileNum" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="notification_type_id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="notification_type" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="verify_bool" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfSCHEDULED_PAYMENT">
@@ -111,6 +114,130 @@
           <s:element minOccurs="1" maxOccurs="1" name="CLIENT_ID" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:complexType name="ArrayOfCONTRACT_DS_LIFE_INSURED">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CONTRACT_DS_LIFE_INSURED" nillable="true" type="tns:CONTRACT_DS_LIFE_INSURED" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CONTRACT_DS_LIFE_INSURED">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CLIENT_ID" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetContractDsLife_By_Period">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aDateBeg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aDateEnd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractDsLife_By_PeriodResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsLife_By_PeriodResult" type="tns:ArrayOfCONTRACT_DS_LIFE" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCONTRACT_DS_LIFE">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CONTRACT_DS_LIFE" nillable="true" type="tns:CONTRACT_DS_LIFE" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetContractDsLife_By_Number">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aContractNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractDsLife_By_NumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsLife_By_NumberResult" type="tns:ArrayOfCONTRACT_DS_LIFE" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetContractDsAnnuity">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aCONTRACT_DS_ANNUITY" type="tns:CONTRACT_DS_ANNUITY" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CONTRACT_DS_ANNUITY">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CONTRACT">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="AMOUNT" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PREMIUM" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PAYMENT_PERIODICITY_ID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="PAYMENT_PERIODICITY" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SetContractDsAnnuityResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetContractDsAnnuityResult" type="tns:CONTRACT_DS_ANNUITY" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractDsAnnuity_By_Id">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="aCONTRACT_ID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractDsAnnuity_By_IdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsAnnuity_By_IdResult" type="tns:CONTRACT_DS_ANNUITY" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractDsAnnuity_By_Period">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aDateBeg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aDateEnd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractDsAnnuity_By_PeriodResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsAnnuity_By_PeriodResult" type="tns:ArrayOfCONTRACT_DS_ANNUITY" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCONTRACT_DS_ANNUITY">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CONTRACT_DS_ANNUITY" nillable="true" type="tns:CONTRACT_DS_ANNUITY" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetContractDsAnnuity_By_Number">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aContractNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractDsAnnuity_By_NumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsAnnuity_By_NumberResult" type="tns:ArrayOfCONTRACT_DS_ANNUITY" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetMiddlemenByKeyFields">
         <s:complexType>
           <s:sequence>
@@ -2502,6 +2629,8 @@
           <s:element minOccurs="0" maxOccurs="1" name="SIC" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="COUNTRY_ID" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="IIN" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="verify_bool" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="dtVerified" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="BANKS" type="tns:ArrayOfCLIENTBANK" />
         </s:sequence>
       </s:complexType>
@@ -2757,6 +2886,72 @@
           <s:element minOccurs="1" maxOccurs="1" name="CLIENT_ID" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetContractOsTourist_By_ContractDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aContractDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractOsTourist_By_ContractDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractOsTourist_By_ContractDateResult" type="tns:ArrayOfCONTRACT_OS_TOURIST" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCONTRACT_OS_TOURIST">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CONTRACT_OS_TOURIST" nillable="true" type="tns:CONTRACT_OS_TOURIST" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CONTRACT_OS_TOURIST">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CONTRACT">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="AMOUNT" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PREMIUM" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="INSURED_COUNT" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="INSURED_LIST" type="tns:ArrayOfCONTRACT_OS_TOURIST_INSURED" />
+              <s:element minOccurs="0" maxOccurs="1" name="COUNTRY_LIST" type="tns:ArrayOfCONTRACT_OS_TOURIST_COUNTRIES" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfCONTRACT_OS_TOURIST_INSURED">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CONTRACT_OS_TOURIST_INSURED" nillable="true" type="tns:CONTRACT_OS_TOURIST_INSURED" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CONTRACT_OS_TOURIST_INSURED">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CLIENT_ID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AMOUNT" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="AMOUNT_CUR_ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="AMOUNT_CUR" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AMOUNT_RATE" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PREMIUM" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PREMIUM_CUR_ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PREMIUM_CUR" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PREMIUM_RATE" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PROGRAM_ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PROGRAM_" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TARIF" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="DAYS_NO" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCONTRACT_OS_TOURIST_COUNTRIES">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CONTRACT_OS_TOURIST_COUNTRIES" nillable="true" type="tns:CONTRACT_OS_TOURIST_COUNTRIES" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CONTRACT_OS_TOURIST_COUNTRIES">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="COUNTRY_ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="COUNTRY" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetContractDsLoan_By_ContractDate">
         <s:complexType>
           <s:sequence>
@@ -2834,35 +3029,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfCONTRACT_DS_LIFE">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CONTRACT_DS_LIFE" nillable="true" type="tns:CONTRACT_DS_LIFE" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="CONTRACT_DS_LIFE">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:CONTRACT">
-            <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="AMOUNT" type="s:double" />
-              <s:element minOccurs="1" maxOccurs="1" name="PREMIUM" type="s:double" />
-              <s:element minOccurs="1" maxOccurs="1" name="PAYMENT_PERIODICITY_ID" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="PAYMENT_PERIODICITY" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="INSURED_COUNT" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="INSURED_LIST" type="tns:ArrayOfCONTRACT_DS_LIFE_INSURED" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="ArrayOfCONTRACT_DS_LIFE_INSURED">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CONTRACT_DS_LIFE_INSURED" nillable="true" type="tns:CONTRACT_DS_LIFE_INSURED" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="CONTRACT_DS_LIFE_INSURED">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="CLIENT_ID" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetContractDsAnnuity_By_ContractDate">
         <s:complexType>
           <s:sequence>
@@ -2952,6 +3118,21 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetLastContractResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractByGlobalID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aContractGlobalID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractByGlobalIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractByGlobalIDResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -3091,6 +3272,11 @@
           <s:element minOccurs="1" maxOccurs="1" name="CLIENT_FORM_ID" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="PAYMENT_TYPE_ID" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="PAYMENT_TYPE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="mobileNum" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="notification_type_id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="notification_type" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="verify_bool" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfDriver">
@@ -3273,6 +3459,21 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="SetPolicyResult" type="tns:Policy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetPolicyDraft">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aPolicy" type="tns:Policy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetPolicyDraftResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetPolicyDraftResult" type="s:double" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -3521,6 +3722,52 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="SetTFResult" type="tns:TF" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchVehicles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aVIN" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aTF_NUMBER" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="aTF_ID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Vehicle">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TYPE_ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="VIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="REG_NUM" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="REG_CERT_NUM" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DT_REG_CERT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NYEAR" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="REGION_ID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="BIG_CITY_BOOL" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="COLOR" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ENGINE_NUMBER" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ENGINE_POWER" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ENGINE_VOLUME" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MODEL_ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MODEL" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MARK_ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MARK" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="nPlaces" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="verified_bool" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="dtVerified" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfVehicle">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Vehicle" nillable="true" type="tns:Vehicle" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchVehiclesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchVehiclesResult" type="tns:ArrayOfVehicle" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4715,6 +4962,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="SetContractOsTourist">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aCONTRACT_OS_TOURIST" type="tns:CONTRACT_OS_TOURIST" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetContractOsTouristResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetContractOsTouristResult" type="tns:CONTRACT_OS_TOURIST" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetContractDsHealth_By_Id">
         <s:complexType>
           <s:sequence>
@@ -4758,6 +5020,52 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetContractDsHealth_By_NumberResult" type="tns:ArrayOfCONTRACT_DS_HEALTH" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractOsTourist_By_Id">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="aCONTRACT_ID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractOsTourist_By_IdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractOsTourist_By_IdResult" type="tns:CONTRACT_OS_TOURIST" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractOsTourist_By_Period">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aDateBeg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aDateEnd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractOsTourist_By_PeriodResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractOsTourist_By_PeriodResult" type="tns:ArrayOfCONTRACT_OS_TOURIST" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractOsTourist_By_Number">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aContractNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractOsTourist_By_NumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractOsTourist_By_NumberResult" type="tns:ArrayOfCONTRACT_OS_TOURIST" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4898,100 +5206,44 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetContractDsLife_By_Id">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="aCONTRACT_ID" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsLife_By_IdResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsLife_By_IdResult" type="tns:CONTRACT_DS_LIFE" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsLife_By_Period">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="aDateBeg" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="aDateEnd" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsLife_By_PeriodResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsLife_By_PeriodResult" type="tns:ArrayOfCONTRACT_DS_LIFE" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsLife_By_Number">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="aContractNumber" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsLife_By_NumberResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsLife_By_NumberResult" type="tns:ArrayOfCONTRACT_DS_LIFE" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SetContractDsAnnuity">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="aCONTRACT_DS_ANNUITY" type="tns:CONTRACT_DS_ANNUITY" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SetContractDsAnnuityResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="SetContractDsAnnuityResult" type="tns:CONTRACT_DS_ANNUITY" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsAnnuity_By_Id">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="aCONTRACT_ID" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsAnnuity_By_IdResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsAnnuity_By_IdResult" type="tns:CONTRACT_DS_ANNUITY" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsAnnuity_By_Period">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="aDateBeg" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="aDateEnd" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsAnnuity_By_PeriodResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsAnnuity_By_PeriodResult" type="tns:ArrayOfCONTRACT_DS_ANNUITY" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetContractDsLife_By_IdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractDsLife_By_Id" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsLife_By_IdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractDsLife_By_IdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsLife_By_PeriodSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractDsLife_By_Period" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsLife_By_PeriodSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractDsLife_By_PeriodResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsLife_By_NumberSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractDsLife_By_Number" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsLife_By_NumberSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractDsLife_By_NumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetContractDsAnnuitySoapIn">
+    <wsdl:part name="parameters" element="tns:SetContractDsAnnuity" />
+  </wsdl:message>
+  <wsdl:message name="SetContractDsAnnuitySoapOut">
+    <wsdl:part name="parameters" element="tns:SetContractDsAnnuityResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsAnnuity_By_IdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractDsAnnuity_By_Id" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsAnnuity_By_IdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractDsAnnuity_By_IdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsAnnuity_By_PeriodSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractDsAnnuity_By_Period" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsAnnuity_By_PeriodSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractDsAnnuity_By_PeriodResponse" />
+  </wsdl:message>
   <wsdl:message name="GetContractDsAnnuity_By_NumberSoapIn">
     <wsdl:part name="parameters" element="tns:GetContractDsAnnuity_By_Number" />
   </wsdl:message>
@@ -5556,6 +5808,12 @@
   <wsdl:message name="GetContractDsHealth_By_ContractDateSoapOut">
     <wsdl:part name="parameters" element="tns:GetContractDsHealth_By_ContractDateResponse" />
   </wsdl:message>
+  <wsdl:message name="GetContractOsTourist_By_ContractDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractOsTourist_By_ContractDate" />
+  </wsdl:message>
+  <wsdl:message name="GetContractOsTourist_By_ContractDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractOsTourist_By_ContractDateResponse" />
+  </wsdl:message>
   <wsdl:message name="GetContractDsLoan_By_ContractDateSoapIn">
     <wsdl:part name="parameters" element="tns:GetContractDsLoan_By_ContractDate" />
   </wsdl:message>
@@ -5609,6 +5867,12 @@
   </wsdl:message>
   <wsdl:message name="GetLastContractSoapOut">
     <wsdl:part name="parameters" element="tns:GetLastContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetContractByGlobalIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractByGlobalID" />
+  </wsdl:message>
+  <wsdl:message name="GetContractByGlobalIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractByGlobalIDResponse" />
   </wsdl:message>
   <wsdl:message name="GetReportSoapIn">
     <wsdl:part name="parameters" element="tns:GetReport" />
@@ -5675,6 +5939,12 @@
   </wsdl:message>
   <wsdl:message name="SetPolicySoapOut">
     <wsdl:part name="parameters" element="tns:SetPolicyResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetPolicyDraftSoapIn">
+    <wsdl:part name="parameters" element="tns:SetPolicyDraft" />
+  </wsdl:message>
+  <wsdl:message name="SetPolicyDraftSoapOut">
+    <wsdl:part name="parameters" element="tns:SetPolicyDraftResponse" />
   </wsdl:message>
   <wsdl:message name="DeletePolicySoapIn">
     <wsdl:part name="parameters" element="tns:DeletePolicy" />
@@ -5753,6 +6023,12 @@
   </wsdl:message>
   <wsdl:message name="SetTFSoapOut">
     <wsdl:part name="parameters" element="tns:SetTFResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchVehiclesSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchVehicles" />
+  </wsdl:message>
+  <wsdl:message name="SearchVehiclesSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchVehiclesResponse" />
   </wsdl:message>
   <wsdl:message name="GetMarkUpFactorXMLSoapIn">
     <wsdl:part name="parameters" element="tns:GetMarkUpFactorXML" />
@@ -6132,6 +6408,12 @@
   <wsdl:message name="SetContractDsHealthSoapOut">
     <wsdl:part name="parameters" element="tns:SetContractDsHealthResponse" />
   </wsdl:message>
+  <wsdl:message name="SetContractOsTouristSoapIn">
+    <wsdl:part name="parameters" element="tns:SetContractOsTourist" />
+  </wsdl:message>
+  <wsdl:message name="SetContractOsTouristSoapOut">
+    <wsdl:part name="parameters" element="tns:SetContractOsTouristResponse" />
+  </wsdl:message>
   <wsdl:message name="GetContractDsHealth_By_IdSoapIn">
     <wsdl:part name="parameters" element="tns:GetContractDsHealth_By_Id" />
   </wsdl:message>
@@ -6149,6 +6431,24 @@
   </wsdl:message>
   <wsdl:message name="GetContractDsHealth_By_NumberSoapOut">
     <wsdl:part name="parameters" element="tns:GetContractDsHealth_By_NumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetContractOsTourist_By_IdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractOsTourist_By_Id" />
+  </wsdl:message>
+  <wsdl:message name="GetContractOsTourist_By_IdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractOsTourist_By_IdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetContractOsTourist_By_PeriodSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractOsTourist_By_Period" />
+  </wsdl:message>
+  <wsdl:message name="GetContractOsTourist_By_PeriodSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractOsTourist_By_PeriodResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetContractOsTourist_By_NumberSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractOsTourist_By_Number" />
+  </wsdl:message>
+  <wsdl:message name="GetContractOsTourist_By_NumberSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractOsTourist_By_NumberResponse" />
   </wsdl:message>
   <wsdl:message name="SetContractDsLoanSoapIn">
     <wsdl:part name="parameters" element="tns:SetContractDsLoan" />
@@ -6204,43 +6504,37 @@
   <wsdl:message name="SetContractDsLifeSoapOut">
     <wsdl:part name="parameters" element="tns:SetContractDsLifeResponse" />
   </wsdl:message>
-  <wsdl:message name="GetContractDsLife_By_IdSoapIn">
-    <wsdl:part name="parameters" element="tns:GetContractDsLife_By_Id" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsLife_By_IdSoapOut">
-    <wsdl:part name="parameters" element="tns:GetContractDsLife_By_IdResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsLife_By_PeriodSoapIn">
-    <wsdl:part name="parameters" element="tns:GetContractDsLife_By_Period" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsLife_By_PeriodSoapOut">
-    <wsdl:part name="parameters" element="tns:GetContractDsLife_By_PeriodResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsLife_By_NumberSoapIn">
-    <wsdl:part name="parameters" element="tns:GetContractDsLife_By_Number" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsLife_By_NumberSoapOut">
-    <wsdl:part name="parameters" element="tns:GetContractDsLife_By_NumberResponse" />
-  </wsdl:message>
-  <wsdl:message name="SetContractDsAnnuitySoapIn">
-    <wsdl:part name="parameters" element="tns:SetContractDsAnnuity" />
-  </wsdl:message>
-  <wsdl:message name="SetContractDsAnnuitySoapOut">
-    <wsdl:part name="parameters" element="tns:SetContractDsAnnuityResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsAnnuity_By_IdSoapIn">
-    <wsdl:part name="parameters" element="tns:GetContractDsAnnuity_By_Id" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsAnnuity_By_IdSoapOut">
-    <wsdl:part name="parameters" element="tns:GetContractDsAnnuity_By_IdResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsAnnuity_By_PeriodSoapIn">
-    <wsdl:part name="parameters" element="tns:GetContractDsAnnuity_By_Period" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsAnnuity_By_PeriodSoapOut">
-    <wsdl:part name="parameters" element="tns:GetContractDsAnnuity_By_PeriodResponse" />
-  </wsdl:message>
   <wsdl:portType name="IICWebServiceSoap">
+    <wsdl:operation name="GetContractDsLife_By_Id">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение по идентификатору договора Страхование жизни</wsdl:documentation>
+      <wsdl:input message="tns:GetContractDsLife_By_IdSoapIn" />
+      <wsdl:output message="tns:GetContractDsLife_By_IdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsLife_By_Period">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Ипотечное страхование по дате ввода (изменения)</wsdl:documentation>
+      <wsdl:input message="tns:GetContractDsLife_By_PeriodSoapIn" />
+      <wsdl:output message="tns:GetContractDsLife_By_PeriodSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsLife_By_Number">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Страхование жизни по номеру договора</wsdl:documentation>
+      <wsdl:input message="tns:GetContractDsLife_By_NumberSoapIn" />
+      <wsdl:output message="tns:GetContractDsLife_By_NumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetContractDsAnnuity">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Сохранение договора Аннутитное страхование</wsdl:documentation>
+      <wsdl:input message="tns:SetContractDsAnnuitySoapIn" />
+      <wsdl:output message="tns:SetContractDsAnnuitySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsAnnuity_By_Id">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение по идентификатору договора Аннутитное страхование</wsdl:documentation>
+      <wsdl:input message="tns:GetContractDsAnnuity_By_IdSoapIn" />
+      <wsdl:output message="tns:GetContractDsAnnuity_By_IdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsAnnuity_By_Period">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Аннутитное страхование по дате ввода (изменения)</wsdl:documentation>
+      <wsdl:input message="tns:GetContractDsAnnuity_By_PeriodSoapIn" />
+      <wsdl:output message="tns:GetContractDsAnnuity_By_PeriodSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetContractDsAnnuity_By_Number">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Аннутитное страхование по номеру договора</wsdl:documentation>
       <wsdl:input message="tns:GetContractDsAnnuity_By_NumberSoapIn" />
@@ -6711,6 +7005,11 @@
       <wsdl:input message="tns:GetContractDsHealth_By_ContractDateSoapIn" />
       <wsdl:output message="tns:GetContractDsHealth_By_ContractDateSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetContractOsTourist_By_ContractDate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Страхования туристов по дате заключения</wsdl:documentation>
+      <wsdl:input message="tns:GetContractOsTourist_By_ContractDateSoapIn" />
+      <wsdl:output message="tns:GetContractOsTourist_By_ContractDateSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetContractDsLoan_By_ContractDate">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Страхование займов по дате заключения</wsdl:documentation>
       <wsdl:input message="tns:GetContractDsLoan_By_ContractDateSoapIn" />
@@ -6755,6 +7054,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Возвращает идентификатор последней версии договора</wsdl:documentation>
       <wsdl:input message="tns:GetLastContractSoapIn" />
       <wsdl:output message="tns:GetLastContractSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContractByGlobalID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Возвращает XML с идентификатором договора и с идентификатором вида страхования</wsdl:documentation>
+      <wsdl:input message="tns:GetContractByGlobalIDSoapIn" />
+      <wsdl:output message="tns:GetContractByGlobalIDSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetReport">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Метод устарел и больше не поддерживается</wsdl:documentation>
@@ -6810,6 +7114,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Сохранение полиса ОС ГПО ВТС</wsdl:documentation>
       <wsdl:input message="tns:SetPolicySoapIn" />
       <wsdl:output message="tns:SetPolicySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetPolicyDraft">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Проверка черновика полиса ОС ГПО ВТС без сохранения</wsdl:documentation>
+      <wsdl:input message="tns:SetPolicyDraftSoapIn" />
+      <wsdl:output message="tns:SetPolicyDraftSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="DeletePolicy">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Удаление полиса ОС ГПО ВТС</wsdl:documentation>
@@ -6875,6 +7184,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Создание/редактирование ТС</wsdl:documentation>
       <wsdl:input message="tns:SetTFSoapIn" />
       <wsdl:output message="tns:SetTFSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchVehicles">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка транспортных средств по VIN коду</wsdl:documentation>
+      <wsdl:input message="tns:SearchVehiclesSoapIn" />
+      <wsdl:output message="tns:SearchVehiclesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetMarkUpFactorXML">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Возвращает коэффициент надбавки для договоров ОСРНС</wsdl:documentation>
@@ -7191,6 +7505,11 @@
       <wsdl:input message="tns:SetContractDsHealthSoapIn" />
       <wsdl:output message="tns:SetContractDsHealthSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="SetContractOsTourist">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Сохранение договора Страхования туристов</wsdl:documentation>
+      <wsdl:input message="tns:SetContractOsTouristSoapIn" />
+      <wsdl:output message="tns:SetContractOsTouristSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetContractDsHealth_By_Id">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение по идентификатору договора Страхования на случай болезни</wsdl:documentation>
       <wsdl:input message="tns:GetContractDsHealth_By_IdSoapIn" />
@@ -7205,6 +7524,21 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Страхования на случай болезни по номеру договора</wsdl:documentation>
       <wsdl:input message="tns:GetContractDsHealth_By_NumberSoapIn" />
       <wsdl:output message="tns:GetContractDsHealth_By_NumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContractOsTourist_By_Id">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение по идентификатору договора Страхования туристов</wsdl:documentation>
+      <wsdl:input message="tns:GetContractOsTourist_By_IdSoapIn" />
+      <wsdl:output message="tns:GetContractOsTourist_By_IdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContractOsTourist_By_Period">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Страхования туристов по дате ввода (изменения)</wsdl:documentation>
+      <wsdl:input message="tns:GetContractOsTourist_By_PeriodSoapIn" />
+      <wsdl:output message="tns:GetContractOsTourist_By_PeriodSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContractOsTourist_By_Number">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Страхования туристов по номеру договора</wsdl:documentation>
+      <wsdl:input message="tns:GetContractOsTourist_By_NumberSoapIn" />
+      <wsdl:output message="tns:GetContractOsTourist_By_NumberSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="SetContractDsLoan">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Сохранение договора Страхование займов</wsdl:documentation>
@@ -7251,39 +7585,63 @@
       <wsdl:input message="tns:SetContractDsLifeSoapIn" />
       <wsdl:output message="tns:SetContractDsLifeSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetContractDsLife_By_Id">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение по идентификатору договора Страхование жизни</wsdl:documentation>
-      <wsdl:input message="tns:GetContractDsLife_By_IdSoapIn" />
-      <wsdl:output message="tns:GetContractDsLife_By_IdSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsLife_By_Period">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Ипотечное страхование по дате ввода (изменения)</wsdl:documentation>
-      <wsdl:input message="tns:GetContractDsLife_By_PeriodSoapIn" />
-      <wsdl:output message="tns:GetContractDsLife_By_PeriodSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsLife_By_Number">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Страхование жизни по номеру договора</wsdl:documentation>
-      <wsdl:input message="tns:GetContractDsLife_By_NumberSoapIn" />
-      <wsdl:output message="tns:GetContractDsLife_By_NumberSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="SetContractDsAnnuity">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Сохранение договора Аннутитное страхование</wsdl:documentation>
-      <wsdl:input message="tns:SetContractDsAnnuitySoapIn" />
-      <wsdl:output message="tns:SetContractDsAnnuitySoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsAnnuity_By_Id">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение по идентификатору договора Аннутитное страхование</wsdl:documentation>
-      <wsdl:input message="tns:GetContractDsAnnuity_By_IdSoapIn" />
-      <wsdl:output message="tns:GetContractDsAnnuity_By_IdSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsAnnuity_By_Period">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Аннутитное страхование по дате ввода (изменения)</wsdl:documentation>
-      <wsdl:input message="tns:GetContractDsAnnuity_By_PeriodSoapIn" />
-      <wsdl:output message="tns:GetContractDsAnnuity_By_PeriodSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="IICWebServiceSoap" type="tns:IICWebServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetContractDsLife_By_Id">
+      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsLife_By_Id" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsLife_By_Period">
+      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsLife_By_Period" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsLife_By_Number">
+      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsLife_By_Number" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetContractDsAnnuity">
+      <soap:operation soapAction="https://icweb/IICWebService/SetContractDsAnnuity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsAnnuity_By_Id">
+      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsAnnuity_By_Id" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsAnnuity_By_Period">
+      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsAnnuity_By_Period" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetContractDsAnnuity_By_Number">
       <soap:operation soapAction="https://icweb/IICWebService/GetContractDsAnnuity_By_Number" style="document" />
       <wsdl:input>
@@ -8130,6 +8488,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetContractOsTourist_By_ContractDate">
+      <soap:operation soapAction="https://icweb/IICWebService/GetContractOsTourist_By_ContractDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetContractDsLoan_By_ContractDate">
       <soap:operation soapAction="https://icweb/IICWebService/GetContractDsLoan_By_ContractDate" style="document" />
       <wsdl:input>
@@ -8204,6 +8571,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetLastContract">
       <soap:operation soapAction="https://icweb/IICWebService/GetLastContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractByGlobalID">
+      <soap:operation soapAction="https://icweb/IICWebService/GetContractByGlobalID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8303,6 +8679,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetPolicy">
       <soap:operation soapAction="https://icweb/IICWebService/SetPolicy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPolicyDraft">
+      <soap:operation soapAction="https://icweb/IICWebService/SetPolicyDraft" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8420,6 +8805,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetTF">
       <soap:operation soapAction="https://icweb/IICWebService/SetTF" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchVehicles">
+      <soap:operation soapAction="https://icweb/IICWebService/SearchVehicles" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8994,6 +9388,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetContractOsTourist">
+      <soap:operation soapAction="https://icweb/IICWebService/SetContractOsTourist" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetContractDsHealth_By_Id">
       <soap:operation soapAction="https://icweb/IICWebService/GetContractDsHealth_By_Id" style="document" />
       <wsdl:input>
@@ -9014,6 +9417,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetContractDsHealth_By_Number">
       <soap:operation soapAction="https://icweb/IICWebService/GetContractDsHealth_By_Number" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractOsTourist_By_Id">
+      <soap:operation soapAction="https://icweb/IICWebService/GetContractOsTourist_By_Id" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractOsTourist_By_Period">
+      <soap:operation soapAction="https://icweb/IICWebService/GetContractOsTourist_By_Period" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractOsTourist_By_Number">
+      <soap:operation soapAction="https://icweb/IICWebService/GetContractOsTourist_By_Number" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9102,63 +9532,63 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetContractDsLife_By_Id">
-      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsLife_By_Id" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsLife_By_Period">
-      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsLife_By_Period" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsLife_By_Number">
-      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsLife_By_Number" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetContractDsAnnuity">
-      <soap:operation soapAction="https://icweb/IICWebService/SetContractDsAnnuity" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsAnnuity_By_Id">
-      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsAnnuity_By_Id" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsAnnuity_By_Period">
-      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsAnnuity_By_Period" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="IICWebServiceSoap12" type="tns:IICWebServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetContractDsLife_By_Id">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsLife_By_Id" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsLife_By_Period">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsLife_By_Period" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsLife_By_Number">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsLife_By_Number" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetContractDsAnnuity">
+      <soap12:operation soapAction="https://icweb/IICWebService/SetContractDsAnnuity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsAnnuity_By_Id">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsAnnuity_By_Id" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsAnnuity_By_Period">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsAnnuity_By_Period" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetContractDsAnnuity_By_Number">
       <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsAnnuity_By_Number" style="document" />
       <wsdl:input>
@@ -10005,6 +10435,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetContractOsTourist_By_ContractDate">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetContractOsTourist_By_ContractDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetContractDsLoan_By_ContractDate">
       <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsLoan_By_ContractDate" style="document" />
       <wsdl:input>
@@ -10079,6 +10518,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetLastContract">
       <soap12:operation soapAction="https://icweb/IICWebService/GetLastContract" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractByGlobalID">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetContractByGlobalID" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -10178,6 +10626,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetPolicy">
       <soap12:operation soapAction="https://icweb/IICWebService/SetPolicy" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetPolicyDraft">
+      <soap12:operation soapAction="https://icweb/IICWebService/SetPolicyDraft" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -10295,6 +10752,15 @@
     </wsdl:operation>
     <wsdl:operation name="SetTF">
       <soap12:operation soapAction="https://icweb/IICWebService/SetTF" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchVehicles">
+      <soap12:operation soapAction="https://icweb/IICWebService/SearchVehicles" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -10869,6 +11335,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetContractOsTourist">
+      <soap12:operation soapAction="https://icweb/IICWebService/SetContractOsTourist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetContractDsHealth_By_Id">
       <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsHealth_By_Id" style="document" />
       <wsdl:input>
@@ -10889,6 +11364,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetContractDsHealth_By_Number">
       <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsHealth_By_Number" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractOsTourist_By_Id">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetContractOsTourist_By_Id" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractOsTourist_By_Period">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetContractOsTourist_By_Period" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractOsTourist_By_Number">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetContractOsTourist_By_Number" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -10977,67 +11479,13 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetContractDsLife_By_Id">
-      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsLife_By_Id" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsLife_By_Period">
-      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsLife_By_Period" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsLife_By_Number">
-      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsLife_By_Number" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetContractDsAnnuity">
-      <soap12:operation soapAction="https://icweb/IICWebService/SetContractDsAnnuity" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsAnnuity_By_Id">
-      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsAnnuity_By_Id" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsAnnuity_By_Period">
-      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsAnnuity_By_Period" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="IICWebService">
     <wsdl:port name="IICWebServiceSoap" binding="tns:IICWebServiceSoap">
-      <soap:address location="https://web.mkb.kz/IICWebService.asmx" />
+      <soap:address location="https://web1.mkb.kz/IICWebService.asmx" />
     </wsdl:port>
     <wsdl:port name="IICWebServiceSoap12" binding="tns:IICWebServiceSoap12">
-      <soap12:address location="https://web.mkb.kz/IICWebService.asmx" />
+      <soap12:address location="https://web1.mkb.kz/IICWebService.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
