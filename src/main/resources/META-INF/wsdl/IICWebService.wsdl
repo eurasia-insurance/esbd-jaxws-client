@@ -11482,10 +11482,10 @@
   </wsdl:binding>
   <wsdl:service name="IICWebService">
     <wsdl:port name="IICWebServiceSoap" binding="tns:IICWebServiceSoap">
-      <soap:address location="https://web1.mkb.kz/IICWebService.asmx" />
+      <soap:address location="https://web2.mkb.kz/IICWebService.asmx" />
     </wsdl:port>
     <wsdl:port name="IICWebServiceSoap12" binding="tns:IICWebServiceSoap12">
-      <soap12:address location="https://web1.mkb.kz/IICWebService.asmx" />
+      <soap12:address location="https://web2.mkb.kz/IICWebService.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
