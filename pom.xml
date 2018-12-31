@@ -138,9 +138,4 @@
 		<tag>HEAD</tag>
 	</scm>
 
-	<issueManagement>
-		<system>gitlab</system>
-		<url>https://gitlab.lapsa.tech/lapsa/esbd/jaxws-client/issues</url>
-	</issueManagement>
-
 </project>
