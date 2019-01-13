@@ -16,8 +16,8 @@
 
 	<properties>
 		<!-- BOMS -->
-		<javax-javaee-bom.version>CURRENT-SNAPSHOT</javax-javaee-bom.version>
-		<java-commons.version>CURRENT-SNAPSHOT</java-commons.version>
+		<javax-javaee-bom.version>20190113r3</javax-javaee-bom.version>
+		<java-commons.version>20190113r3</java-commons.version>
 		<!-- ASB -->
 		<asb.keystore.file>${env.ASB_PATH}/keystore.jks</asb.keystore.file>
 		<asb.keystore.type>JKS</asb.keystore.type>
