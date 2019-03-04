@@ -2,31 +2,33 @@
 <wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://icweb/IICWebService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="https://icweb/IICWebService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="https://icweb/IICWebService">
-      <s:element name="GetContractDsLife_By_Id">
+      <s:element name="GetContractDsLoan_By_Number">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="aCONTRACT_ID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="aContractNumber" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetContractDsLife_By_IdResponse">
+      <s:element name="GetContractDsLoan_By_NumberResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsLife_By_IdResult" type="tns:CONTRACT_DS_LIFE" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsLoan_By_NumberResult" type="tns:ArrayOfCONTRACT_DS_LOAN" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="CONTRACT_DS_LIFE">
+      <s:complexType name="ArrayOfCONTRACT_DS_LOAN">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CONTRACT_DS_LOAN" nillable="true" type="tns:CONTRACT_DS_LOAN" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CONTRACT_DS_LOAN">
         <s:complexContent mixed="false">
           <s:extension base="tns:CONTRACT">
             <s:sequence>
               <s:element minOccurs="1" maxOccurs="1" name="AMOUNT" type="s:double" />
               <s:element minOccurs="1" maxOccurs="1" name="PREMIUM" type="s:double" />
-              <s:element minOccurs="1" maxOccurs="1" name="PAYMENT_PERIODICITY_ID" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="PAYMENT_PERIODICITY" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="INSURED_COUNT" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="INSURED_LIST" type="tns:ArrayOfCONTRACT_DS_LIFE_INSURED" />
+              <s:element minOccurs="0" maxOccurs="1" name="LOAN_CONTRACT_NUMBER" type="s:string" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -77,6 +79,7 @@
           <s:element minOccurs="1" maxOccurs="1" name="notification_type_id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="notification_type" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="verify_bool" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="online_bool" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfSCHEDULED_PAYMENT">
@@ -114,6 +117,105 @@
           <s:element minOccurs="1" maxOccurs="1" name="CLIENT_ID" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="SetContractDsMortgage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aCONTRACT_DS_MORTGAGE" type="tns:CONTRACT_DS_MORTGAGE" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CONTRACT_DS_MORTGAGE">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CONTRACT">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="AMOUNT" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PREMIUM" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="MORTGAGE_CONTRACT_NUMBER" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SetContractDsMortgageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetContractDsMortgageResult" type="tns:CONTRACT_DS_MORTGAGE" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractDsMortgage_By_Id">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="aCONTRACT_ID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractDsMortgage_By_IdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsMortgage_By_IdResult" type="tns:CONTRACT_DS_MORTGAGE" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractDsMortgage_By_Period">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aDateBeg" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aDateEnd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractDsMortgage_By_PeriodResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsMortgage_By_PeriodResult" type="tns:ArrayOfCONTRACT_DS_MORTGAGE" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCONTRACT_DS_MORTGAGE">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CONTRACT_DS_MORTGAGE" nillable="true" type="tns:CONTRACT_DS_MORTGAGE" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetContractDsMortgage_By_Number">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aContractNumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractDsMortgage_By_NumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsMortgage_By_NumberResult" type="tns:ArrayOfCONTRACT_DS_MORTGAGE" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetContractDsLife">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aCONTRACT_DS_LIFE" type="tns:CONTRACT_DS_LIFE" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CONTRACT_DS_LIFE">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:CONTRACT">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="AMOUNT" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PREMIUM" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PAYMENT_PERIODICITY_ID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="PAYMENT_PERIODICITY" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="INSURED_COUNT" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="INSURED_LIST" type="tns:ArrayOfCONTRACT_DS_LIFE_INSURED" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:complexType name="ArrayOfCONTRACT_DS_LIFE_INSURED">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="CONTRACT_DS_LIFE_INSURED" nillable="true" type="tns:CONTRACT_DS_LIFE_INSURED" />
@@ -124,6 +226,28 @@
           <s:element minOccurs="1" maxOccurs="1" name="CLIENT_ID" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:element name="SetContractDsLifeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetContractDsLifeResult" type="tns:CONTRACT_DS_LIFE" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractDsLife_By_Id">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="aCONTRACT_ID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractDsLife_By_IdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsLife_By_IdResult" type="tns:CONTRACT_DS_LIFE" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetContractDsLife_By_Period">
         <s:complexType>
           <s:sequence>
@@ -262,6 +386,9 @@
           <s:element minOccurs="1" maxOccurs="1" name="CHANGED_BY_USER_ID" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="SYSTEM_DELIMITER_ID" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="USER_ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RESCINDING_DATE" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MIDDLEMEN_RESCINDING_REASON_ID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RESPONSIBLE_PERSON_ID" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetMiddlemenByKeyFieldsResponse">
@@ -335,6 +462,21 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="CalculateContractPremiumResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CalculateContractPremium_Discount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CalculateContractPremium_DiscountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CalculateContractPremium_DiscountResult" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2589,6 +2731,8 @@
               <s:element minOccurs="0" maxOccurs="1" name="GIVE_DATE" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="RISK_COEFFICIENT" type="s:double" />
               <s:element minOccurs="0" maxOccurs="1" name="INSURED_LIST" type="tns:ArrayOfClient" />
+              <s:element minOccurs="1" maxOccurs="1" name="DISCOUNT" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="CALCULATED_PREMIUM_DISCOUNTED" type="s:int" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -2631,6 +2775,10 @@
           <s:element minOccurs="0" maxOccurs="1" name="IIN" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="verify_bool" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="dtVerified" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="First_Name_eng" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Middle_Name_eng" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Last_Name_eng" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Juridical_Address" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="BANKS" type="tns:ArrayOfCLIENTBANK" />
         </s:sequence>
       </s:complexType>
@@ -2967,22 +3115,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfCONTRACT_DS_LOAN">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CONTRACT_DS_LOAN" nillable="true" type="tns:CONTRACT_DS_LOAN" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="CONTRACT_DS_LOAN">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:CONTRACT">
-            <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="AMOUNT" type="s:double" />
-              <s:element minOccurs="1" maxOccurs="1" name="PREMIUM" type="s:double" />
-              <s:element minOccurs="0" maxOccurs="1" name="LOAN_CONTRACT_NUMBER" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
       <s:element name="GetContractDsMortgage_By_ContractDate">
         <s:complexType>
           <s:sequence>
@@ -2998,22 +3130,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfCONTRACT_DS_MORTGAGE">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="CONTRACT_DS_MORTGAGE" nillable="true" type="tns:CONTRACT_DS_MORTGAGE" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="CONTRACT_DS_MORTGAGE">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:CONTRACT">
-            <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="AMOUNT" type="s:double" />
-              <s:element minOccurs="1" maxOccurs="1" name="PREMIUM" type="s:double" />
-              <s:element minOccurs="0" maxOccurs="1" name="MORTGAGE_CONTRACT_NUMBER" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
       <s:element name="GetContractDsLife_By_ContractDate">
         <s:complexType>
           <s:sequence>
@@ -3277,6 +3393,9 @@
           <s:element minOccurs="1" maxOccurs="1" name="notification_type_id" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="notification_type" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="verify_bool" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="online_bool" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DISCOUNT" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CALCULATED_PREMIUM_DISCOUNTED" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfDriver">
@@ -3567,6 +3686,69 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetClientDocumentsListByID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="aClientID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CLIENT_DOCUMENTS">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CLIENT_DOCUMENT_ID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CLIENT_ID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DOCUMENT_TYPE_ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DOCUMENT_SERIAL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DOCUMENT_NUM" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DTISSUED" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DTEFFECTIVE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DTEXPIRY" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ISSUING_AUTHORITY_ID" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCLIENT_DOCUMENTS">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CLIENT_DOCUMENTS" nillable="true" type="tns:CLIENT_DOCUMENTS" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetClientDocumentsListByIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetClientDocumentsListByIDResult" type="tns:ArrayOfCLIENT_DOCUMENTS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetClientGroupsListByID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="aClientID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CLIENT_GROUPS">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CLIENT_GROUP_ID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CLIENT_ID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GROUP_ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="BEGIN_DATE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="END_DATE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NOTES" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCLIENT_GROUPS">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CLIENT_GROUPS" nillable="true" type="tns:CLIENT_GROUPS" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetClientGroupsListByIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetClientGroupsListByIDResult" type="tns:ArrayOfCLIENT_GROUPS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetClientsByRNN">
         <s:complexType>
           <s:sequence>
@@ -3624,6 +3806,36 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="SetClientPBDetailsResult" type="tns:CLIENT_PB_DETAILS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetClientDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aClientDocuments" type="tns:CLIENT_DOCUMENTS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetClientDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetClientDocumentsResult" type="tns:CLIENT_DOCUMENTS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetClientGroups">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aClientGroups" type="tns:CLIENT_GROUPS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetClientGroupsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetClientGroupsResult" type="tns:CLIENT_GROUPS" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -3732,6 +3944,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="aVIN" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="aTF_NUMBER" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="aTF_ID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="aTF_REG_CERTIF" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4075,6 +4288,21 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="CalculatePolicyPremiumResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CalculatePolicyPremium_Discount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="aPolicy" type="tns:Policy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CalculatePolicyPremium_DiscountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CalculatePolicyPremium_DiscountResult" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -5115,99 +5343,44 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetContractDsLoan_By_Number">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="aContractNumber" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsLoan_By_NumberResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsLoan_By_NumberResult" type="tns:ArrayOfCONTRACT_DS_LOAN" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SetContractDsMortgage">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="aCONTRACT_DS_MORTGAGE" type="tns:CONTRACT_DS_MORTGAGE" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SetContractDsMortgageResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="SetContractDsMortgageResult" type="tns:CONTRACT_DS_MORTGAGE" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsMortgage_By_Id">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="aCONTRACT_ID" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsMortgage_By_IdResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsMortgage_By_IdResult" type="tns:CONTRACT_DS_MORTGAGE" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsMortgage_By_Period">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="aDateBeg" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="aDateEnd" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsMortgage_By_PeriodResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsMortgage_By_PeriodResult" type="tns:ArrayOfCONTRACT_DS_MORTGAGE" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsMortgage_By_Number">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="aContractNumber" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetContractDsMortgage_By_NumberResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetContractDsMortgage_By_NumberResult" type="tns:ArrayOfCONTRACT_DS_MORTGAGE" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SetContractDsLife">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="aSessionID" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="aCONTRACT_DS_LIFE" type="tns:CONTRACT_DS_LIFE" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="SetContractDsLifeResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="SetContractDsLifeResult" type="tns:CONTRACT_DS_LIFE" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetContractDsLoan_By_NumberSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractDsLoan_By_Number" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsLoan_By_NumberSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractDsLoan_By_NumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetContractDsMortgageSoapIn">
+    <wsdl:part name="parameters" element="tns:SetContractDsMortgage" />
+  </wsdl:message>
+  <wsdl:message name="SetContractDsMortgageSoapOut">
+    <wsdl:part name="parameters" element="tns:SetContractDsMortgageResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsMortgage_By_IdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractDsMortgage_By_Id" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsMortgage_By_IdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractDsMortgage_By_IdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsMortgage_By_PeriodSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractDsMortgage_By_Period" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsMortgage_By_PeriodSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractDsMortgage_By_PeriodResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsMortgage_By_NumberSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractDsMortgage_By_Number" />
+  </wsdl:message>
+  <wsdl:message name="GetContractDsMortgage_By_NumberSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractDsMortgage_By_NumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetContractDsLifeSoapIn">
+    <wsdl:part name="parameters" element="tns:SetContractDsLife" />
+  </wsdl:message>
+  <wsdl:message name="SetContractDsLifeSoapOut">
+    <wsdl:part name="parameters" element="tns:SetContractDsLifeResponse" />
+  </wsdl:message>
   <wsdl:message name="GetContractDsLife_By_IdSoapIn">
     <wsdl:part name="parameters" element="tns:GetContractDsLife_By_Id" />
   </wsdl:message>
@@ -5279,6 +5452,12 @@
   </wsdl:message>
   <wsdl:message name="CalculateContractPremiumSoapOut">
     <wsdl:part name="parameters" element="tns:CalculateContractPremiumResponse" />
+  </wsdl:message>
+  <wsdl:message name="CalculateContractPremium_DiscountSoapIn">
+    <wsdl:part name="parameters" element="tns:CalculateContractPremium_Discount" />
+  </wsdl:message>
+  <wsdl:message name="CalculateContractPremium_DiscountSoapOut">
+    <wsdl:part name="parameters" element="tns:CalculateContractPremium_DiscountResponse" />
   </wsdl:message>
   <wsdl:message name="GET_OSRNS_PREMIUMSoapIn">
     <wsdl:part name="parameters" element="tns:GET_OSRNS_PREMIUM" />
@@ -5970,6 +6149,18 @@
   <wsdl:message name="GetClientPBDetailsListByIDSoapOut">
     <wsdl:part name="parameters" element="tns:GetClientPBDetailsListByIDResponse" />
   </wsdl:message>
+  <wsdl:message name="GetClientDocumentsListByIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetClientDocumentsListByID" />
+  </wsdl:message>
+  <wsdl:message name="GetClientDocumentsListByIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetClientDocumentsListByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetClientGroupsListByIDSoapIn">
+    <wsdl:part name="parameters" element="tns:GetClientGroupsListByID" />
+  </wsdl:message>
+  <wsdl:message name="GetClientGroupsListByIDSoapOut">
+    <wsdl:part name="parameters" element="tns:GetClientGroupsListByIDResponse" />
+  </wsdl:message>
   <wsdl:message name="GetClientsByRNNSoapIn">
     <wsdl:part name="parameters" element="tns:GetClientsByRNN" />
   </wsdl:message>
@@ -5993,6 +6184,18 @@
   </wsdl:message>
   <wsdl:message name="SetClientPBDetailsSoapOut">
     <wsdl:part name="parameters" element="tns:SetClientPBDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetClientDocumentsSoapIn">
+    <wsdl:part name="parameters" element="tns:SetClientDocuments" />
+  </wsdl:message>
+  <wsdl:message name="SetClientDocumentsSoapOut">
+    <wsdl:part name="parameters" element="tns:SetClientDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetClientGroupsSoapIn">
+    <wsdl:part name="parameters" element="tns:SetClientGroups" />
+  </wsdl:message>
+  <wsdl:message name="SetClientGroupsSoapOut">
+    <wsdl:part name="parameters" element="tns:SetClientGroupsResponse" />
   </wsdl:message>
   <wsdl:message name="GetTFByVINSoapIn">
     <wsdl:part name="parameters" element="tns:GetTFByVIN" />
@@ -6125,6 +6328,12 @@
   </wsdl:message>
   <wsdl:message name="CalculatePolicyPremiumSoapOut">
     <wsdl:part name="parameters" element="tns:CalculatePolicyPremiumResponse" />
+  </wsdl:message>
+  <wsdl:message name="CalculatePolicyPremium_DiscountSoapIn">
+    <wsdl:part name="parameters" element="tns:CalculatePolicyPremium_Discount" />
+  </wsdl:message>
+  <wsdl:message name="CalculatePolicyPremium_DiscountSoapOut">
+    <wsdl:part name="parameters" element="tns:CalculatePolicyPremium_DiscountResponse" />
   </wsdl:message>
   <wsdl:message name="ExecuteSoapIn">
     <wsdl:part name="parameters" element="tns:Execute" />
@@ -6468,43 +6677,37 @@
   <wsdl:message name="GetContractDsLoan_By_PeriodSoapOut">
     <wsdl:part name="parameters" element="tns:GetContractDsLoan_By_PeriodResponse" />
   </wsdl:message>
-  <wsdl:message name="GetContractDsLoan_By_NumberSoapIn">
-    <wsdl:part name="parameters" element="tns:GetContractDsLoan_By_Number" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsLoan_By_NumberSoapOut">
-    <wsdl:part name="parameters" element="tns:GetContractDsLoan_By_NumberResponse" />
-  </wsdl:message>
-  <wsdl:message name="SetContractDsMortgageSoapIn">
-    <wsdl:part name="parameters" element="tns:SetContractDsMortgage" />
-  </wsdl:message>
-  <wsdl:message name="SetContractDsMortgageSoapOut">
-    <wsdl:part name="parameters" element="tns:SetContractDsMortgageResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsMortgage_By_IdSoapIn">
-    <wsdl:part name="parameters" element="tns:GetContractDsMortgage_By_Id" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsMortgage_By_IdSoapOut">
-    <wsdl:part name="parameters" element="tns:GetContractDsMortgage_By_IdResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsMortgage_By_PeriodSoapIn">
-    <wsdl:part name="parameters" element="tns:GetContractDsMortgage_By_Period" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsMortgage_By_PeriodSoapOut">
-    <wsdl:part name="parameters" element="tns:GetContractDsMortgage_By_PeriodResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsMortgage_By_NumberSoapIn">
-    <wsdl:part name="parameters" element="tns:GetContractDsMortgage_By_Number" />
-  </wsdl:message>
-  <wsdl:message name="GetContractDsMortgage_By_NumberSoapOut">
-    <wsdl:part name="parameters" element="tns:GetContractDsMortgage_By_NumberResponse" />
-  </wsdl:message>
-  <wsdl:message name="SetContractDsLifeSoapIn">
-    <wsdl:part name="parameters" element="tns:SetContractDsLife" />
-  </wsdl:message>
-  <wsdl:message name="SetContractDsLifeSoapOut">
-    <wsdl:part name="parameters" element="tns:SetContractDsLifeResponse" />
-  </wsdl:message>
   <wsdl:portType name="IICWebServiceSoap">
+    <wsdl:operation name="GetContractDsLoan_By_Number">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Страхование займов по номеру договора</wsdl:documentation>
+      <wsdl:input message="tns:GetContractDsLoan_By_NumberSoapIn" />
+      <wsdl:output message="tns:GetContractDsLoan_By_NumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetContractDsMortgage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Сохранение договора Ипотечное страхование</wsdl:documentation>
+      <wsdl:input message="tns:SetContractDsMortgageSoapIn" />
+      <wsdl:output message="tns:SetContractDsMortgageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsMortgage_By_Id">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение по идентификатору договора Ипотечное страхование</wsdl:documentation>
+      <wsdl:input message="tns:GetContractDsMortgage_By_IdSoapIn" />
+      <wsdl:output message="tns:GetContractDsMortgage_By_IdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsMortgage_By_Period">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Ипотечное страхование по дате ввода (изменения)</wsdl:documentation>
+      <wsdl:input message="tns:GetContractDsMortgage_By_PeriodSoapIn" />
+      <wsdl:output message="tns:GetContractDsMortgage_By_PeriodSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsMortgage_By_Number">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Ипотечное страхование по номеру договора</wsdl:documentation>
+      <wsdl:input message="tns:GetContractDsMortgage_By_NumberSoapIn" />
+      <wsdl:output message="tns:GetContractDsMortgage_By_NumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetContractDsLife">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Сохранение договора Страхование жизни</wsdl:documentation>
+      <wsdl:input message="tns:SetContractDsLifeSoapIn" />
+      <wsdl:output message="tns:SetContractDsLifeSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetContractDsLife_By_Id">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение по идентификатору договора Страхование жизни</wsdl:documentation>
       <wsdl:input message="tns:GetContractDsLife_By_IdSoapIn" />
@@ -6564,6 +6767,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Расчет страховой премии по обязательным видам страхования, кроме ОС ГПО ВТС</wsdl:documentation>
       <wsdl:input message="tns:CalculateContractPremiumSoapIn" />
       <wsdl:output message="tns:CalculateContractPremiumSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CalculateContractPremium_Discount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Расчет страховой премии по обязательным видам страхования, кроме ОС ГПО ВТС с учетом скидки</wsdl:documentation>
+      <wsdl:input message="tns:CalculateContractPremium_DiscountSoapIn" />
+      <wsdl:output message="tns:CalculateContractPremium_DiscountSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GET_OSRNS_PREMIUM">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Расчет страховой премии для версии договора ОСРНС</wsdl:documentation>
@@ -7140,6 +7348,16 @@
       <wsdl:input message="tns:GetClientPBDetailsListByIDSoapIn" />
       <wsdl:output message="tns:GetClientPBDetailsListByIDSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetClientDocumentsListByID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка документов по идентификатору клиента</wsdl:documentation>
+      <wsdl:input message="tns:GetClientDocumentsListByIDSoapIn" />
+      <wsdl:output message="tns:GetClientDocumentsListByIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClientGroupsListByID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка групп клиента</wsdl:documentation>
+      <wsdl:input message="tns:GetClientGroupsListByIDSoapIn" />
+      <wsdl:output message="tns:GetClientGroupsListByIDSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetClientsByRNN">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка клиентов по РНН</wsdl:documentation>
       <wsdl:input message="tns:GetClientsByRNNSoapIn" />
@@ -7159,6 +7377,16 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Добавить рекизиты ИП/КХ для клиента</wsdl:documentation>
       <wsdl:input message="tns:SetClientPBDetailsSoapIn" />
       <wsdl:output message="tns:SetClientPBDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetClientDocuments">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Добавить документы клиента</wsdl:documentation>
+      <wsdl:input message="tns:SetClientDocumentsSoapIn" />
+      <wsdl:output message="tns:SetClientDocumentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetClientGroups">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Добавить группы клиента</wsdl:documentation>
+      <wsdl:input message="tns:SetClientGroupsSoapIn" />
+      <wsdl:output message="tns:SetClientGroupsSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetTFByVIN">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка транспортных средств по VIN коду</wsdl:documentation>
@@ -7269,6 +7497,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Расчет страховой премии ОС ГПО ВТС</wsdl:documentation>
       <wsdl:input message="tns:CalculatePolicyPremiumSoapIn" />
       <wsdl:output message="tns:CalculatePolicyPremiumSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CalculatePolicyPremium_Discount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Расчет страховой премии ОС ГПО ВТС с учетом скидки</wsdl:documentation>
+      <wsdl:input message="tns:CalculatePolicyPremium_DiscountSoapIn" />
+      <wsdl:output message="tns:CalculatePolicyPremium_DiscountSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Execute">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Выполнение метода ЕСБД</wsdl:documentation>
@@ -7555,39 +7788,63 @@
       <wsdl:input message="tns:GetContractDsLoan_By_PeriodSoapIn" />
       <wsdl:output message="tns:GetContractDsLoan_By_PeriodSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetContractDsLoan_By_Number">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Страхование займов по номеру договора</wsdl:documentation>
-      <wsdl:input message="tns:GetContractDsLoan_By_NumberSoapIn" />
-      <wsdl:output message="tns:GetContractDsLoan_By_NumberSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="SetContractDsMortgage">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Сохранение договора Ипотечное страхование</wsdl:documentation>
-      <wsdl:input message="tns:SetContractDsMortgageSoapIn" />
-      <wsdl:output message="tns:SetContractDsMortgageSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsMortgage_By_Id">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение по идентификатору договора Ипотечное страхование</wsdl:documentation>
-      <wsdl:input message="tns:GetContractDsMortgage_By_IdSoapIn" />
-      <wsdl:output message="tns:GetContractDsMortgage_By_IdSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsMortgage_By_Period">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Ипотечное страхование по дате ввода (изменения)</wsdl:documentation>
-      <wsdl:input message="tns:GetContractDsMortgage_By_PeriodSoapIn" />
-      <wsdl:output message="tns:GetContractDsMortgage_By_PeriodSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsMortgage_By_Number">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Получение списка договоров Ипотечное страхование по номеру договора</wsdl:documentation>
-      <wsdl:input message="tns:GetContractDsMortgage_By_NumberSoapIn" />
-      <wsdl:output message="tns:GetContractDsMortgage_By_NumberSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="SetContractDsLife">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Сохранение договора Страхование жизни</wsdl:documentation>
-      <wsdl:input message="tns:SetContractDsLifeSoapIn" />
-      <wsdl:output message="tns:SetContractDsLifeSoapOut" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="IICWebServiceSoap" type="tns:IICWebServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetContractDsLoan_By_Number">
+      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsLoan_By_Number" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetContractDsMortgage">
+      <soap:operation soapAction="https://icweb/IICWebService/SetContractDsMortgage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsMortgage_By_Id">
+      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsMortgage_By_Id" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsMortgage_By_Period">
+      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsMortgage_By_Period" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsMortgage_By_Number">
+      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsMortgage_By_Number" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetContractDsLife">
+      <soap:operation soapAction="https://icweb/IICWebService/SetContractDsLife" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetContractDsLife_By_Id">
       <soap:operation soapAction="https://icweb/IICWebService/GetContractDsLife_By_Id" style="document" />
       <wsdl:input>
@@ -7689,6 +7946,15 @@
     </wsdl:operation>
     <wsdl:operation name="CalculateContractPremium">
       <soap:operation soapAction="https://icweb/IICWebService/CalculateContractPremium" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CalculateContractPremium_Discount">
+      <soap:operation soapAction="https://icweb/IICWebService/CalculateContractPremium_Discount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8731,6 +8997,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetClientDocumentsListByID">
+      <soap:operation soapAction="https://icweb/IICWebService/GetClientDocumentsListByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientGroupsListByID">
+      <soap:operation soapAction="https://icweb/IICWebService/GetClientGroupsListByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetClientsByRNN">
       <soap:operation soapAction="https://icweb/IICWebService/GetClientsByRNN" style="document" />
       <wsdl:input>
@@ -8760,6 +9044,24 @@
     </wsdl:operation>
     <wsdl:operation name="SetClientPBDetails">
       <soap:operation soapAction="https://icweb/IICWebService/SetClientPBDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetClientDocuments">
+      <soap:operation soapAction="https://icweb/IICWebService/SetClientDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetClientGroups">
+      <soap:operation soapAction="https://icweb/IICWebService/SetClientGroups" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8958,6 +9260,15 @@
     </wsdl:operation>
     <wsdl:operation name="CalculatePolicyPremium">
       <soap:operation soapAction="https://icweb/IICWebService/CalculatePolicyPremium" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CalculatePolicyPremium_Discount">
+      <soap:operation soapAction="https://icweb/IICWebService/CalculatePolicyPremium_Discount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9478,63 +9789,63 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetContractDsLoan_By_Number">
-      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsLoan_By_Number" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetContractDsMortgage">
-      <soap:operation soapAction="https://icweb/IICWebService/SetContractDsMortgage" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsMortgage_By_Id">
-      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsMortgage_By_Id" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsMortgage_By_Period">
-      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsMortgage_By_Period" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsMortgage_By_Number">
-      <soap:operation soapAction="https://icweb/IICWebService/GetContractDsMortgage_By_Number" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetContractDsLife">
-      <soap:operation soapAction="https://icweb/IICWebService/SetContractDsLife" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="IICWebServiceSoap12" type="tns:IICWebServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetContractDsLoan_By_Number">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsLoan_By_Number" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetContractDsMortgage">
+      <soap12:operation soapAction="https://icweb/IICWebService/SetContractDsMortgage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsMortgage_By_Id">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsMortgage_By_Id" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsMortgage_By_Period">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsMortgage_By_Period" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractDsMortgage_By_Number">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsMortgage_By_Number" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetContractDsLife">
+      <soap12:operation soapAction="https://icweb/IICWebService/SetContractDsLife" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetContractDsLife_By_Id">
       <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsLife_By_Id" style="document" />
       <wsdl:input>
@@ -9636,6 +9947,15 @@
     </wsdl:operation>
     <wsdl:operation name="CalculateContractPremium">
       <soap12:operation soapAction="https://icweb/IICWebService/CalculateContractPremium" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CalculateContractPremium_Discount">
+      <soap12:operation soapAction="https://icweb/IICWebService/CalculateContractPremium_Discount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -10678,6 +10998,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetClientDocumentsListByID">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetClientDocumentsListByID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientGroupsListByID">
+      <soap12:operation soapAction="https://icweb/IICWebService/GetClientGroupsListByID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetClientsByRNN">
       <soap12:operation soapAction="https://icweb/IICWebService/GetClientsByRNN" style="document" />
       <wsdl:input>
@@ -10707,6 +11045,24 @@
     </wsdl:operation>
     <wsdl:operation name="SetClientPBDetails">
       <soap12:operation soapAction="https://icweb/IICWebService/SetClientPBDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetClientDocuments">
+      <soap12:operation soapAction="https://icweb/IICWebService/SetClientDocuments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetClientGroups">
+      <soap12:operation soapAction="https://icweb/IICWebService/SetClientGroups" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -10905,6 +11261,15 @@
     </wsdl:operation>
     <wsdl:operation name="CalculatePolicyPremium">
       <soap12:operation soapAction="https://icweb/IICWebService/CalculatePolicyPremium" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CalculatePolicyPremium_Discount">
+      <soap12:operation soapAction="https://icweb/IICWebService/CalculatePolicyPremium_Discount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -11418,60 +11783,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetContractDsLoan_By_Period">
       <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsLoan_By_Period" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsLoan_By_Number">
-      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsLoan_By_Number" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetContractDsMortgage">
-      <soap12:operation soapAction="https://icweb/IICWebService/SetContractDsMortgage" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsMortgage_By_Id">
-      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsMortgage_By_Id" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsMortgage_By_Period">
-      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsMortgage_By_Period" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetContractDsMortgage_By_Number">
-      <soap12:operation soapAction="https://icweb/IICWebService/GetContractDsMortgage_By_Number" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetContractDsLife">
-      <soap12:operation soapAction="https://icweb/IICWebService/SetContractDsLife" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
